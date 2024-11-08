@@ -60,6 +60,19 @@ class DoublyLinkedList {
     this.length++;
     return this;
   }
+  shift() {
+    if (!this.head) return undefined;
+    else if (this.length === 1) {
+      return this.makeEmpty();
+    } else {
+      let temp = this.head;
+      this.head = this.head.next;
+      this.head.prev = null;
+      temp.next = null;
+    }
+    this.length--;
+    return temp;
+  }
 }
 
 // test code
