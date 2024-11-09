@@ -73,9 +73,22 @@ class DoublyLinkedList {
     this.length--;
     return temp;
   }
+
+  get(index) {
+    if (index >= this.length || index < 0) return undefined;
+    let temp = this.head;
+    if (index < this.length / 2) {
+      for (let i = 0; i < index; i++) temp = temp.next;
+    } else {
+      temp = this.tail;
+      for (let i = this.length - 1; i > index; i--) temp = temp.prev;
+    }
+    return temp;
+  }
 }
 
 // test code
-
-let dLL = new DoublyLinkedList(2);
+let dLL = new DoublyLinkedList(0);
+dLL.push(1);
+dLL.push(2);
 dLL.push(3);
