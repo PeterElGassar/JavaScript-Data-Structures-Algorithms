@@ -85,6 +85,11 @@ class DoublyLinkedList {
     }
     return temp;
   }
+
+  set(index, value) {
+    let node = this.get(index);
+    return node ? !!(node.value = value) : false;
+  }
 }
 
 // test code
