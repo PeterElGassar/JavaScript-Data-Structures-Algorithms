@@ -19,7 +19,13 @@ class DoublyLinkedList {
     this.tail = null;
     this.length = 0;
   }
-
+  printList() {
+    let temp = this.head;
+    while (temp !== null) {
+      console.log(temp.value);
+      temp = temp.next;
+    }
+  }
   push(value) {
     let newNode = new Node(value);
     if (!this.head) {
@@ -90,10 +96,47 @@ class DoublyLinkedList {
     let node = this.get(index);
     return node ? !!(node.value = value) : false;
   }
+  insert(index, value) {
+    if (index > this.length || index < 0) return false;
+    else if (index === 0) return this.unshift(value);
+    else if (index === this.length) return this.push(value);
+    const newNode = new Node(value);
+
+    const before = this.get(index - 1);
+    const after = before.next;
+
+    before.next = newNode;
+    newNode.prev = before;
+    newNode.next = after;
+    after.prev = newNode;
+    this.length++;
+    return true;
+  }
 }
 
 // test code
-let dLL = new DoublyLinkedList(0);
-dLL.push(1);
-dLL.push(2);
-dLL.push(3);
+
+function test() {
+  let myDLL = new DoublyLinkedList(1);
+  myDLL.push(3);
+
+  console.log("DLL before insert():");
+  myDLL.printList();
+
+  myDLL.insert(1, 2);
+
+  console.log("\nDLL after insert(2) in middle:");
+  myDLL.printList();
+
+  myDLL.insert(0, 0);
+
+  console.log("\nDLL after insert(0) at beginning:");
+  myDLL.printList();
+
+  myDLL.insert(4, 4);
+
+  console.log("\nDLL after insert(4) at end:");
+  myDLL.printList();
+}
+
+test();
