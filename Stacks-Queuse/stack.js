@@ -22,6 +22,16 @@ class Stack {
     this.length++;
     return this;
   }
+
+  pop() {
+    if (!this.top) return undefined;
+    let temp = this.top;
+    this.top = this.top.next;
+    temp.next = null;
+
+    this.length--;
+    return temp;
+  }
 }
 
 const myStack = new Stack(11);
