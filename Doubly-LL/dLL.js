@@ -42,17 +42,19 @@ class DoublyLinkedList {
 
   pop() {
     if (!this.head) return undefined;
-    else if (this.length === 1) {
-      this.makeEmpty();
+    let temp = this.tail;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
     } else {
-      let temp = this.tail;
       this.tail = this.tail.prev;
       this.tail.next = null;
       temp.prev = null;
-      this.length--;
-      return temp;
     }
+    this.length--;
+    return temp;
   }
+
   unshift(value) {
     const newNode = new Node(value);
     if (!this.head) {
@@ -66,12 +68,14 @@ class DoublyLinkedList {
     this.length++;
     return this;
   }
+
   shift() {
     if (!this.head) return undefined;
-    else if (this.length === 1) {
+    let temp = this.head;
+
+    if (this.length === 1) {
       return this.makeEmpty();
     } else {
-      let temp = this.head;
       this.head = this.head.next;
       this.head.prev = null;
       temp.next = null;
@@ -112,31 +116,42 @@ class DoublyLinkedList {
     this.length++;
     return true;
   }
+
+  remove(index) {
+    if (index >= this.length || index < 0) return undefined;
+    else if (index === this.length - 1) return this.pop();
+    else if (index === 0) return this.shift();
+
+    const temp = this.get(index);
+    temp.prev.next = temp.next;
+    temp.next.prev = temp.prev;
+    temp.next = null;
+    temp.prev = null;
+
+    this.length--;
+    return temp;
+  }
 }
 
 // test code
 
-function test() {
-  let myDLL = new DoublyLinkedList(1);
-  myDLL.push(3);
+let dLL = new DoublyLinkedList(1);
+dLL.push(3);
 
-  console.log("DLL before insert():");
-  myDLL.printList();
+console.log("DLL before insert():");
+dLL.printList();
 
-  myDLL.insert(1, 2);
+dLL.insert(1, 2);
 
-  console.log("\nDLL after insert(2) in middle:");
-  myDLL.printList();
+console.log("\nDLL after insert(2) in middle:");
+dLL.printList();
 
-  myDLL.insert(0, 0);
+dLL.insert(0, 0);
 
-  console.log("\nDLL after insert(0) at beginning:");
-  myDLL.printList();
+console.log("\nDLL after insert(0) at beginning:");
+dLL.printList();
 
-  myDLL.insert(4, 4);
+dLL.insert(4, 4);
 
-  console.log("\nDLL after insert(4) at end:");
-  myDLL.printList();
-}
-
-test();
+console.log("\nDLL after insert(4) at end:");
+dLL.printList();
