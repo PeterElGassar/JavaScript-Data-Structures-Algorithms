@@ -44,9 +44,9 @@ class HashTable {
         for (let j = 0; j < this.dataMap[i].length; j++) {
           allKeys.push(this.dataMap[i][j][0]);
         }
-        return allKeys;
       }
     }
+    return allKeys;
   }
 }
 
