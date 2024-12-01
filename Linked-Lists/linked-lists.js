@@ -74,7 +74,7 @@ class LinkedList {
 
   get(index) {
     // validate index in the range
-    if (index < 0 || index > this) return undefined;
+    if (index < 0 || index > this.length) return undefined;
 
     let temp = this.head;
     for (let i = 0; i < index; i++) {
@@ -96,20 +96,19 @@ class LinkedList {
   insert(index, value) {
     if (index < 0 || index > this.length) return false;
     // insert into beginning
+    if (index === this.length) return this.push(value);
     if (index === 0) return this.unshift(value);
     // insert into end
-    if (index === this.length) return this.push(value);
     // insert into middle
     const newNode = new Node(value);
-    const temp = this.get(this.length - 1);
+    const temp = this.get(index - 1);
     newNode.next = temp.next;
     temp.next = newNode;
     this.length++;
   }
 
   remove(index) {
-    if (index < 0 || index > this.length) return false;
-
+    if (index < 0 || index >= this.length) return undefined;
     //remove from beginning
     if (index === 0) return this.shift();
     //remove from end
